@@ -29,7 +29,7 @@ describe('Testing handleGetUser', () => {
   });
 
   it('should return 404 because steam user was not found', async () => {
-    sinon.stub(steamAPIObject, 'getSteamUser').resolves(undefined)
+    sinon.stub(steamAPIObject, 'getSteamUser').returns(null)
 
     const REQ = {
       params: {

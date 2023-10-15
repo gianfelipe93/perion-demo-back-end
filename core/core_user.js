@@ -1,4 +1,4 @@
-const { getGames, getSteamUser } = require("../thirdPartyServices/steamAPI")
+const steamAPI = require("../thirdPartyServices/steamAPI")
 
 const handleGetUser = async (req, res) => {
   try {
@@ -8,13 +8,13 @@ const handleGetUser = async (req, res) => {
       return res.status(400).send('Missing steamId')
     }
 
-    const steamUser = await getSteamUser(steamId)
+    const steamUser = await steamAPI.getSteamUser(steamId)
 
     if (!steamUser) {
       return res.status(404).send(`SteamId not found. Please confirm you've entered the correct steamId`)
     }
 
-    const userGames = await getGames(steamId)
+    const userGames = await steamAPI.getGames(steamId)
 
     return res.status(200).send({ userDetails: steamUser, userGames })
   } catch (error) {

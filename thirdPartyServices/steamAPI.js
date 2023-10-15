@@ -10,7 +10,7 @@ const getGames = async (steamId) => {
 
   const apiResponse = await axios.get(STEAM_API_URL)
 
-  return apiResponse.data.response
+  return apiResponse?.data?.response
 }
 
 const getSteamUser = async (steamId) => {
@@ -18,7 +18,7 @@ const getSteamUser = async (steamId) => {
 
   const apiResponse = await axios.get(STEAM_API_URL)
 
-  return apiResponse.data.response.players[0]
+  return apiResponse?.data?.response?.players[0]
 }
 
 module.exports = { getGames, getSteamUser }
