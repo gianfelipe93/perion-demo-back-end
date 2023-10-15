@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'perrion-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_05B0BDA983A14253ACB4197D229FA233 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_85C780379A7D49F4BA7840A35E74D13E }}
           package: .
