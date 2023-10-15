@@ -21,4 +21,25 @@ const getSteamUser = async (steamId) => {
   return apiResponse?.data?.response?.players[0]
 }
 
-module.exports = { getGames, getSteamUser }
+const getAchievements = async (steamId, gameId) => {
+  const STEAM_API_URL = `${STEAM_BASE_API_URL}/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${gameId}&key=${STEAM_KEY}&steamid=${steamId}&l=true`
+
+  const apiResponse = await axios.get(STEAM_API_URL)
+
+  const fullResponse = apiResponse?.data?.playerstats
+
+  return fullResponse.achievements
+}
+
+const getGlobalStats = async (gameId) => {
+  const STEAM_API_URL = `${STEAM_BASE_API_URL}/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${gameId}&format=json&l=true`
+
+  const apiResponse = await axios.get(STEAM_API_URL)
+
+  const fullResponse = apiResponse?.data?.achievementpercentages
+
+  return fullResponse.achievements
+}
+
+
+module.exports = { getGames, getSteamUser, getAchievements, getGlobalStats }

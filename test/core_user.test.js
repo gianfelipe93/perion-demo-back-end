@@ -1,7 +1,59 @@
 var { expect } = require('chai');
-const handleGetUser = require('../core/core_user');
+const { handleGetUser, mergeStats } = require('../core/core_user');
 var sinon = require('sinon')
 const steamAPIObject = require('../thirdPartyServices/steamAPI')
+
+describe('Testing mergeStats', () => {
+  it('should return a proper array', async () => {
+    const globalStats = [
+      {
+        "name": "use_gas_station",
+        "percent": 72.9000015258789063
+      },
+      {
+        "name": "use_rest_stop",
+        "percent": 68.6999969482421875
+      }]
+
+    const userAchievements = [
+      {
+        "apiname": "use_rest_stop",
+        "achieved": 0,
+        "unlocktime": 0,
+        "name": "I Am a GPS",
+        "description": "Discover more than 60% of the map"
+      },
+      {
+        "apiname": "use_gas_station",
+        "achieved": 0,
+        "unlocktime": 0,
+        "name": "Pathfinder",
+        "description": "Discover 100% of the map"
+      }]
+
+    const expectedResult = [
+      {
+        "apiname": "use_rest_stop",
+        "achieved": 0,
+        "unlocktime": 0,
+        "name": "I Am a GPS",
+        "description": "Discover more than 60% of the map",
+        "percent": "68.70"
+      }, {
+        "apiname": "use_gas_station",
+        "achieved": 0,
+        "unlocktime": 0,
+        "name": "Pathfinder",
+        "description": "Discover 100% of the map",
+        "percent": "72.90"
+      }
+    ]
+
+    const result = mergeStats(userAchievements, globalStats)
+
+    expect(result).to.deep.equal(expectedResult)
+  });
+});
 
 
 describe('Testing handleGetUser', () => {
